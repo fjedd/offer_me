@@ -1,0 +1,8 @@
+{% extends "authentication/index.html" %}
+{% block content %} 
+<form action="" , method="post" id="register">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class = "btn btn-success">Register account</button>
+</form>
+{% endblock content %}
