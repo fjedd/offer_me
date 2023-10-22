@@ -1,0 +1,12 @@
+{% extends "authentication/index.html" %}
+{% block content %}
+    <h1>Job offers</h1>
+    {% for offer in job_offers %}
+        <h2>{{ offer.title }}</h2>
+        <p>Company: {{ offer.company }}</p>
+        <p>Salary: {{ offer.salary }}</p>
+        <p>Location: {{ offer.location }}</p>
+        <p>{{ offer.description }}</p>
+        <p>Published: {{ offer.date_posted }}</p>
+    {% endfor %}
+{% endblock content %}
