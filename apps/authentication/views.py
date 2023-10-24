@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.models import User
+
 import django.contrib.auth as auth
-from backend.forms.login_form import LoginForm
+from static.data import offers_data
+
 from backend.forms.register_form import RegisterForm
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 
 
 def home(request):
@@ -12,31 +13,35 @@ def home(request):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect("home")
     form = RegisterForm()
     if request.method == "POST":
-        form = UserCreationForm()
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-        messages.success(request, "User created")
-        return redirect("login")
-
+            user = form.cleaned_data.get("username")
+            messages.success(request, f"Account created for {user}")
+            return redirect("login")
     return render(request, "authentication/register.html", {"form": form})
 
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect("home")
+    form = AuthenticationForm()
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
         user = auth.authenticate(username=username, password=password)
-        if user:
+        if user is not None:
             messages.success(request, "Logged in")
             auth.login(request, user)
-            return render(request, "authentication/panel.html", {"username": username})
+            return redirect("home")
+        else:
+            messages.info(request, "Invalid credentials")
 
-        messages.error(request, "Bad credentils")
-        return redirect("login")
-    return render(request, "authentication/login.html", {"form": AuthenticationForm()})
+    return render(request, "authentication/login.html", {"form": form})
 
 
 def logout(request):
@@ -47,3 +52,6 @@ def logout(request):
 
 def panel(request):
     return render(request, "authentication/panel.html")
+
+def offers(request):
+    return render(request, "authentication/offers.html", {"job_offers": offers_data.job_offers})

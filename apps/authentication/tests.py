@@ -11,8 +11,6 @@ class AuthenticationTestCase(TestCase):
             'username': 'testuser',
             'password': 'testpassword',
             'email': 'testuser@example.com',
-            "first_name": "testname",
-            "last_name": "testsurname"
         }
         self.user = User.objects.create_user(**self.user_data)
         
@@ -25,7 +23,7 @@ class AuthenticationTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
         response = self.client.post(self.register_url, self.user_data)
-        self.assertEqual(response.status_code, 302)  
+        self.assertEqual(response.status_code, 302)  # Redirects to login page after successful registration
 
         # Check if the user is created
         self.assertTrue(User.objects.filter(username='testuser').exists())
