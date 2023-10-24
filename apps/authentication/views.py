@@ -53,5 +53,8 @@ def logout(request):
 def panel(request):
     return render(request, "authentication/panel.html")
 
+
 def offers(request):
-    return render(request, "authentication/offers.html", {"job_offers": offers_data.job_offers})
+    return render(
+        request, "authentication/offers.html", {"job_offers": offers_data.job_offers}
+    )
