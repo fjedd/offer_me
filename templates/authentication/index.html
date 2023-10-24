@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ name }}</title>
+    <title>{% block title %}{% endblock title %}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="">
@@ -28,10 +28,7 @@
     <a href={% url "register" %}>Register</a>
 {% endif %}
 <br>
-<h2>Home page</h2>
-{% if user.is_authenticated %}
-    <p>Hello {{ user.username }}</p>
-{% endif %}
+<h2>{% block header %}{% endblock header %}</h2>
 {% block content %}
 {% endblock content %}
 <script src="" async defer></script>

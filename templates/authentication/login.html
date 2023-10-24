@@ -1,4 +1,5 @@
 {% extends "authentication/index.html" %}
+{% block title %}Login{% endblock title %}
 {% block content %}
     {{ form.errors }}
     <form action="" method="post" id="login">
@@ -10,5 +11,5 @@
         {% endfor %}
         <button type="submit" name="Login">Login</button>
     </form>
-    <a href={% url "register" %}>Register page</a>
+    <p>Forgot credentials? Go to <a href={% url "register" %}>Register page</a></p>
 {% endblock content %}

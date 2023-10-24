@@ -1,6 +1,6 @@
 {% extends "authentication/index.html" %}
+{% block title %}Job offers{% endblock title %}
 {% block content %}
-    <h1>Job offers</h1>
     {% for offer in job_offers %}
         <h2>{{ offer.title }}</h2>
         <p>Company: {{ offer.company }}</p>
