@@ -1,6 +1,7 @@
 # Local
 .pytest_cache/
 venv/
+.vscode/
 
 # Django #
 *.log

@@ -1,0 +1,20 @@
+{% extends "main_app/index.html" %} 
+{% block title %}Job offers
+{% endblock title%} 
+{% block content %}
+<h2>Job offers:</h2>
+{% if job_offers %}
+{% for offer in job_offers %}
+<h2>{{ offer.title }}</h2>
+<p>Company: {{ offer.company }}</p>
+<p>Salary: {{ offer.salary }}</p>
+<p>Location: {{ offer.location }}</p>
+<p>{{ offer.description }}</p>
+<p>Published: {{ offer.date_posted }}</p>
+{% endfor %} 
+{% else %}
+<h4>No offers for now, you can be first!</h4>
+{% endif %}
+
+
+{% endblock content %}
