@@ -6,10 +6,12 @@ from static.data import offers_data
 
 from backend.forms.register_form import RegisterForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from .models import JobOffer
 
 
 def home(request):
-    return render(request, "authentication/home.html")
+    return render(request, "main_app/home.html")
 
 
 def register(request):
@@ -23,7 +25,7 @@ def register(request):
             user = form.cleaned_data.get("username")
             messages.success(request, f"Account created for {user}")
             return redirect("login")
-    return render(request, "authentication/register.html", {"form": form})
+    return render(request, "main_app/register.html", {"form": form})
 
 
 def login(request):
@@ -41,7 +43,7 @@ def login(request):
         else:
             messages.info(request, "Invalid credentials")
 
-    return render(request, "authentication/login.html", {"form": form})
+    return render(request, "main_app/login.html", {"form": form})
 
 
 def logout(request):
@@ -49,12 +51,13 @@ def logout(request):
     messages.success(request, "Logged out")
     return redirect("home")
 
-
+@login_required
 def panel(request):
     return render(request, "authentication/panel.html")
 
 
 def offers(request):
+    job_offers = JobOffer.objects.all()
     return render(
-        request, "authentication/offers.html", {"job_offers": offers_data.job_offers}
+        request, "main_app/offers.html", {"job_offers": job_offers}
     )
