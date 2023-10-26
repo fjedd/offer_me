@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 import django.contrib.auth as auth
-from static.data import offers_data
 
 from backend.forms.register_form import RegisterForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -51,9 +50,15 @@ def logout(request):
     messages.success(request, "Logged out")
     return redirect("home")
 
+
 @login_required
 def panel(request):
-    return render(request, "authentication/panel.html")
+    return render(request, "main_app/panel.html")
+
+
+@login_required
+def offer_form(request):
+    return render(request, "main_app/offer.form.html")
 
 
 def offers(request):
