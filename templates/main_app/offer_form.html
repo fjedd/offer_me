@@ -3,5 +3,10 @@
 Offer form
 {% endblock title%} 
 {% block content %}
-
+    <form method = "POST" action={% url 'offer_form' %}>
+        {% csrf_token %}
+        {{form.as_p}}
+        <br>
+        <button type='Submit'>Add offer</button>
+    </form>
 {% endblock content %}

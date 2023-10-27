@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
 import django.contrib.auth as auth
 
 from backend.forms.register_form import RegisterForm
+from backend.forms.add_offer_form import AddOfferForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .models import JobOffer
@@ -58,7 +58,14 @@ def panel(request):
 
 @login_required
 def offer_form(request):
-    return render(request, "main_app/offer.form.html")
+    form = AddOfferForm(request.POST or None)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if form.is_valid():
+                add_offer = form.save()
+                messages.success(request, "Offer added")
+                return redirect("offers")
+    return render(request, "main_app/offer_form.html", {"form": form})
 
 
 def offers(request):
