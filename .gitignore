@@ -2,6 +2,7 @@
 .pytest_cache/
 venv/
 .vscode/
+.env
 
 # Django #
 *.log
