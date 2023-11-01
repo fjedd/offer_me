@@ -1,15 +1,21 @@
-{% extends "main_appindex.html" %}
-{% block title %}Login{% endblock title %}
+{% extends "main_app/index.html" %}
+{% block title %}
+    Login
+{% endblock title %}
 {% block content %}
     {{ form.errors }}
     <form action="" method="post" id="login">
         {% csrf_token %}
         {% for field in form %}
-            {{ field.label }}
-            {{ field }}
-            <br/>
+            <div class='form-group'>
+                {{ field.label }}
+                {{ field }}
+            </div>
+            <br />
         {% endfor %}
-        <button type="submit" name="Login">Login</button>
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
-    <p>Forgot credentials? Go to <a href={% url "register" %}>Register page</a></p>
+    <p>
+        Forgot credentials? Go to <a href={% url "register" %}>Register page</a>
+    </p>
 {% endblock content %}
