@@ -1,5 +1,6 @@
 # Local
 .pytest_cache/
+.mypy_cache/
 venv/
 .vscode/
 .env
@@ -12,6 +13,6 @@ __pycache__
 db.sqlite3
 media
 
-# Python # 
-*.py[cod] 
-*$py.class 
+# Python #
+*.py[cod]
+*$py.class

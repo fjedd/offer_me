@@ -1,11 +1,11 @@
-{% extends "main_app/index.html" %} 
+{% extends "main_app/index.html" %}
 {% block title %}
-Offer form
-{% endblock title%} 
+    Offer form
+{% endblock title %}
 {% block content %}
-    <form method = "POST" action={% url 'offer_form' %}>
+    <form method = "POST" action={% url 'offer_form' %} class='form-horizontal'>
         {% csrf_token %}
-        {{form.as_p}}
+        {{ form.as_p }}
         <br>
         <button type='Submit'>Add offer</button>
     </form>

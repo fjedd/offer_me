@@ -1,0 +1,6 @@
+fix error Manager isn't available; 'auth.User' has been swapped for 'main_app.User'
+play with bootstrap
+add user permissions
+write unittests
+switch database to postgres
+add docker-compose
