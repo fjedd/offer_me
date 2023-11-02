@@ -4,6 +4,7 @@
 venv/
 .vscode/
 .env
+db.sqlite3
 
 # Django #
 *.log
