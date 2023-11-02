@@ -8,8 +8,8 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 
 from .models import JobOffer
-from backend.forms.add_offer_form import AddOfferForm
-from backend.forms.register_form import RegisterForm
+from forms.add_offer_form import AddOfferForm
+from forms.register_form import RegisterForm
 
 
 def home(request):
