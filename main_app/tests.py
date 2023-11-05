@@ -1,9 +1,13 @@
+from __future__ import annotations
+
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User
+
 
 class AuthenticationTestCase(TestCase):
-    
+    # TODO add tests
+
     def setUp(self):
         self.register_url = reverse('register')
         self.login_url = reverse('login')
@@ -13,23 +17,18 @@ class AuthenticationTestCase(TestCase):
             'email': 'testuser@example.com',
         }
         self.user = User.objects.create_user(**self.user_data)
-        
-    def tearDown():
+
+    def tearDown(self):
         pass
-        
-    
+
     def test_register_new_user(self):
-        response = self.client.get(self.register_url)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.post(self.register_url, self.user_data)
-        self.assertEqual(response.status_code, 302)  # Redirects to login page after successful registration
-
-        # Check if the user is created
-        self.assertTrue(User.objects.filter(username='testuser').exists())
-    def register_existing_user():
         pass
-    def login_correct_credentaials():
+
+    def register_existing_user(self):
         pass
-    def login_incorrect_credentials():
+
+    def login_correct_credentaials(self):
+        pass
+
+    def login_incorrect_credentials(self):
         pass

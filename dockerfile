@@ -1,5 +1,9 @@
-FROM python3.12-slim
+# syntax=docker/dockerfile:1
+FROM python:3.12.0-alpine3.18
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 WORKDIR /app
-COPY . /app
-RUN pip install --upgrade pip \
-    pip install -r requirements
+RUN apk update && apk add gcc g++ libpq-dev python3-dev
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
+COPY . /app/
