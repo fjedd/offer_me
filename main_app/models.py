@@ -13,15 +13,16 @@ class User(AbstractUser):
 
 
 class JobOffer(models.Model):
+    JOB_TYPES = (
+        ('Remote', 'Remote'),
+        ('Hybrid', 'Hybrid'),
+        ('Office', 'Office'),
+    )
     title = models.CharField(max_length=500)
     company = models.CharField(max_length=20)
     location = models.CharField(max_length=20)
     is_remote = models.CharField(
-        max_length=20, choices=[
-            ('Remote', 'Remote'),
-            ('Hybrid', 'Hybrid'),
-            ('Office', 'Office'),
-        ],
+        max_length=6, choices=JOB_TYPES,
         default='Remote',
     )
     salary = models.CharField(max_length=100)
