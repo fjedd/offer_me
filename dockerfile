@@ -5,5 +5,5 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 RUN apk update && apk add gcc g++ libpq-dev python3-dev
 COPY requirements.txt /app/
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt && pip install -r test_requirements
 COPY . /app/
