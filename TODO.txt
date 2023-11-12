@@ -1,6 +1,9 @@
-fix issues with containers
+
 refactor views to separate classes
-play with bootstrap
 add user permissions
 write unittests
-add README.txt
+
+
+fix message close button
+
+play with bootstrap

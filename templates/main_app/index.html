@@ -22,9 +22,7 @@
         {% for message in  messages %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong>Message:</strong> {{ message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}
         <nav class='nav nav-pills flex-column flex-sm-row'>
@@ -41,9 +39,9 @@
             {% endif %}
         </nav>
         <br>
-        <h2>
-            {% block header %}
-            {% endblock header %}
+        <h2 class='d-flex justify-content-center'2>
+            {% block page_header %}
+            {% endblock page_header %}
         </h2>
         {% block content %}
         {% endblock content %}
