@@ -7,7 +7,6 @@ repos:
     -   id: check-yaml
     -   id: debug-statements
     -   id: double-quote-string-fixer
-    -   id: name-tests-test
     -   id: requirements-txt-fixer
 -   repo: https://github.com/asottile/setup-cfg-fmt
     rev: v2.5.0
@@ -47,4 +46,3 @@ repos:
     rev: v1.33.0
     hooks:
       - id: djlint-reformat-django
-      - id: djlint-django

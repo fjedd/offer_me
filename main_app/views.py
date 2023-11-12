@@ -74,5 +74,16 @@ def offer_form(request):
 def offers(request):
     job_offers = JobOffer.objects.all()
     return render(
-        request, 'main_app/offers.html', {'job_offers': job_offers},
+        request,
+        'main_app/offers.html',
+        {'job_offers': job_offers},
     )
+
+
+def delete_offer(request, pk):
+    offer = JobOffer.objects.get(id=pk)
+    if request.method == 'POST':
+        offer.delete()
+        messages.success(request, f'{offer.title} was deleted')
+        return redirect('home')
+    return render(request, 'main_app/delete_offer.html', {'offer': offer})

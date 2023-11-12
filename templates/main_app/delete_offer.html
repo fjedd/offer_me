@@ -1,0 +1,15 @@
+{% extends "main_app/index.html" %}
+{% block title %}
+    Delete offer
+{% endblock title %}
+{% block page_header %}
+    Delete offer
+{% endblock page_header %}
+{% block content %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        <p>Are you sure you want to delete {{ offer.title }}?</p>
+        <a href="{{ request.META.HTTP_REFERER }}">Go back</a>
+        <input type="Submit" value="Confirm" />
+    </form>
+{% endblock content %}

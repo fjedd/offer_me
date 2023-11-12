@@ -2,8 +2,13 @@
 {% block title %}
     Offer form
 {% endblock title %}
+{% block page_header %}
+    Add offer
+{% endblock page_header %}
 {% block content %}
-    <form method = "POST" action={% url 'offer_form' %} class='form-horizontal'>
+    <form method="POST"
+          action="{% url 'offer_form' %}"
+          class='form-horizontal col-md-4 offset-md-4'>
         {% csrf_token %}
         {{ form.as_p }}
         <br>
