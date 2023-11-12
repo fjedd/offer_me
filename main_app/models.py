@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -7,23 +5,25 @@ from django.db import models
 class User(AbstractUser):
     class Meta:
         permissions = (
-            ('Moderator', 'Moderator'),
-            ('Creator', 'Creator'), ('Viewer', 'Viewer'),
+            ("Moderator", "Moderator"),
+            ("Creator", "Creator"),
+            ("Viewer", "Viewer"),
         )
 
 
 class JobOffer(models.Model):
     JOB_TYPES = (
-        ('Remote', 'Remote'),
-        ('Hybrid', 'Hybrid'),
-        ('Office', 'Office'),
+        ("Remote", "Remote"),
+        ("Hybrid", "Hybrid"),
+        ("Office", "Office"),
     )
     title = models.CharField(max_length=500)
     company = models.CharField(max_length=20)
     location = models.CharField(max_length=20)
     is_remote = models.CharField(
-        max_length=6, choices=JOB_TYPES,
-        default='Remote',
+        max_length=6,
+        choices=JOB_TYPES,
+        default="Remote",
     )
     salary = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
