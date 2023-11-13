@@ -10,6 +10,6 @@
         {% csrf_token %}
         <p>Are you sure you want to delete {{ offer.title }}?</p>
         <a href="{{ request.META.HTTP_REFERER }}">Go back</a>
-        <input type="Submit" value="Confirm" />
+        <input type="Submit" value="Confirm" class ='btn btn-primary' />
     </form>
 {% endblock content %}
