@@ -2,20 +2,21 @@
 {% block title %}
     Login
 {% endblock title %}
+{% block page_header %}
+    Login
+{% endblock page_header %}
 {% block content %}
     {{ form.errors }}
-    <form action="" method="post" id="login">
+    <form action="" method="post" class='form-horizontal col-md-4 offset-md-4'>
         {% csrf_token %}
         {% for field in form %}
-            <div class='form-group'>
-                {{ field.label }}
-                {{ field }}
-            </div>
-            <br />
+            {{ field.label }}
+            {{ field }}
+            <br>
         {% endfor %}
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class ='btn btn-primary'>Login</button>
     </form>
-    <p>
+    <p class='col-md-4 offset-md-4'>
         Forgot credentials? Go to <a href={% url "register" %}>Register page</a>
     </p>
 {% endblock content %}

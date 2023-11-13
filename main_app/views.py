@@ -1,10 +1,10 @@
 import django.contrib.auth as auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 
 from forms.add_offer_form import AddOfferForm
+from forms.login_form import LoginForm
 from forms.register_form import RegisterForm
 
 from .models import JobOffer
@@ -31,7 +31,7 @@ def register(request):
 def login(request):
     if request.user.is_authenticated:
         return redirect("home")
-    form = AuthenticationForm()
+    form = LoginForm()
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
