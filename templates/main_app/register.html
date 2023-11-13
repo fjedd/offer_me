@@ -2,16 +2,19 @@
 {% block title %}
     Registration
 {% endblock title %}
+{% block page_header %}
+    Register
+{% endblock page_header %}
 {% block content %}
     {{ form.errors }}
-    <form action="" , method="post" id="register">
+    <form action="" method="post" class='form-horizontal col-md-4 offset-md-4'>
         {% csrf_token %}
         {% for field in form %}
             {{ field.label }}
             {{ field }}
             <br>
         {% endfor %}
-        <button type="submit">Register account</button>
+        <button type="submit" class ='btn btn-primary'>Register account</button>
     </form>
-    <a href={% url "login" %}>Login page</a>
+    <a href={% url "login" %} class='btn btn-link col-md-4 offset-md-4'>Return to login page</a>
 {% endblock content %}
