@@ -10,4 +10,8 @@ Platform used to post job offers with user account management system
 - Execute `docker-compose build`
 - Execute `docker-compose up -d`
 
+### Testing
+
+* Use `docker-compose exec app pytest` to run the tests.
+
 ### WORK IN PROGRESS
