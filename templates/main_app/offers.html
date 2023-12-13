@@ -1,20 +1,32 @@
-{% extends "main_app/index.html" %}
+{% extends "main_app/base.html" %}
 {% block title %}
     Job offers
 {% endblock title %}
 {% block content %}
-    <h2>Job offers:</h2>
-    {% if job_offers %}
-        {% for offer in job_offers %}
-            <a href={% url "delete_offer" offer.id %}>Delete</a>
-            <h2>{{ offer.title }}</h2>
-            <p>Company: {{ offer.company }}</p>
-            <p>Salary: {{ offer.salary }}</p>
-            <p>Location: {{ offer.location }}</p>
-            <p>{{ offer.description }}</p>
-            <p>Published: {{ offer.date_posted }}</p>
-        {% endfor %}
+    <h2 class='text-center'>Job offers:</h2>
+    <hr>
+    <div class='container'>
+        {% if job_offers %}
+            {% for offer in job_offers %}
+                <div class="text-center">
+                    <h2>{{ offer.title }}</h2>
+                    <p>Author: {{ offer.author }}</p>
+                    <p>Company: {{ offer.company }}</p>
+                    <p>Salary: {{ offer.salary }}</p>
+                    <p>Location: {{ offer.location }}</p>
+                    <p>{{ offer.description }}</p>
+                    <p>Published: {{ offer.date_posted }}</p>
+                    {% if offer.author == user %}
+                        <a href={% url "delete_offer" offer.id %}><i class="bi bi-trash3"></i></a>
+                        <a href={% url "update_offer" offer.id %}>
+                            <i class="bi bi-pencil"></i></a>
+                    {% endif %}
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
         <h4>No offers for now, you can be first!</h4>
     {% endif %}
+</div>
 {% endblock content %}

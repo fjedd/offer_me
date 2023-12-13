@@ -11,4 +11,5 @@ urlpatterns = [
     path("offers", views.offers, name="offers"),
     path("offer_form", views.offer_form, name="offer_form"),
     path("delete_offer/<str:pk>", views.delete_offer, name="delete_offer"),
+    path("update_offer/<str:pk>", views.update_offer, name="update_offer"),
 ]

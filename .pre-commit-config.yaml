@@ -7,15 +7,14 @@ repos:
     -   id: check-yaml
     -   id: debug-statements
     -   id: requirements-txt-fixer
--   repo: https://github.com/hhatto/autopep8
-    rev: v2.0.4
-    hooks:
-    -   id: autopep8
 -   repo: https://github.com/PyCQA/flake8
     rev: 6.1.0
     hooks:
     -   id: flake8
-        exclude: 'offer_me/settings.py'
+        exclude: '^main_app/migrations/|offer_me/settings.py$'
+        args:
+            - '--max-line-length=121'
+            - '--max-complexity=10'
 -   repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.6.1
     hooks:
@@ -26,10 +25,11 @@ repos:
     rev: v1.33.0
     hooks:
       - id: djlint-reformat-django
--   repo: https://github.com/psf/black-pre-commit-mirror
+-   repo: 'https://github.com/psf/black'
     rev: 23.11.0
     hooks:
       - id: black
+        exclude: ^migrations/
         language_version: python3.11
 -   repo: https://github.com/pycqa/isort
     rev: 5.12.0
