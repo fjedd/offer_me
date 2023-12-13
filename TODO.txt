@@ -1,5 +1,3 @@
 refactor views to separate classes
-add user permissions
-write unittests
-
-fix message close button
+add moderator group
+write unittests for offers

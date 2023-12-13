@@ -3,7 +3,7 @@ from django import forms
 from main_app.models import JobOffer
 
 
-class AddOfferForm(forms.ModelForm):
+class OfferForm(forms.ModelForm):
     class Meta:
         model = JobOffer
         fields = [

@@ -1,10 +1,10 @@
 import django.contrib.auth as auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
-from forms.add_offer_form import AddOfferForm
 from forms.login_form import LoginForm
+from forms.offer_form import OfferForm
 from forms.register_form import RegisterForm
 
 from .models import JobOffer
@@ -57,15 +57,16 @@ def panel(request):
     return render(request, "main_app/panel.html")
 
 
-@login_required
+@login_required(login_url="/login")
 def offer_form(request):
-    form = AddOfferForm(request.POST or None)
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            if form.is_valid():
-                form.save()
-                messages.success(request, "Offer added")
-                return redirect("offers")
+    form = OfferForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            offer = form.save(commit=False)
+            offer.author = request.user
+            offer.save()
+            messages.success(request, "Offer added")
+            return redirect("offers")
     return render(request, "main_app/offer_form.html", {"form": form})
 
 
@@ -78,10 +79,26 @@ def offers(request):
     )
 
 
+@login_required(login_url="/login")
 def delete_offer(request, pk):
-    offer = JobOffer.objects.get(id=pk)
-    if request.method == "POST":
-        offer.delete()
-        messages.success(request, f"{offer.title} was deleted")
-        return redirect("home")
+    offer = get_object_or_404(JobOffer, id=pk)
+    if offer.author == request.user:
+        if request.method == "POST":
+            offer.delete()
+            messages.success(request, f"{offer.title} was deleted")
+            return redirect("offers")
+    else:
+        messages.warning(request, "You do not have permission to delete this offer")
+        return redirect("offers")
     return render(request, "main_app/delete_offer.html", {"offer": offer})
+
+
+@login_required(login_url="/login")
+def update_offer(request, pk):
+    offer = get_object_or_404(JobOffer, id=pk)
+    if offer.author == request.user:
+        form = OfferForm(instance=offer)
+    else:
+        messages.warning(request, "You do not have permission to edit this offer")
+        return redirect("offers")
+    return render(request, "main_app/offer_form.html", {"form": form})
