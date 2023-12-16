@@ -17,6 +17,7 @@ class JobOffer(models.Model):
         ("Hybrid", "Hybrid"),
         ("Office", "Office"),
     )
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=500)
     company = models.CharField(max_length=20)
     location = models.CharField(max_length=20)

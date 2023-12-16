@@ -1,4 +1,4 @@
-{% extends "main_app/index.html" %}
+{% extends "main_app/base.html" %}
 {% block title %}
     Offer form
 {% endblock title %}
@@ -12,6 +12,8 @@
         {% csrf_token %}
         {{ form.as_p }}
         <br>
-        <button class ='btn btn-primary' type='Submit'>Add offer</button>
+        <div class="d-grid gap-2">
+            <button class ='btn btn-primary' type='Submit'>Add offer</button>
+        </div>
     </form>
 {% endblock content %}

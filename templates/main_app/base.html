@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            {% block title %}
+            {% endblock title %}
+        </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+              rel="stylesheet"
+              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+              crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+                integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+                crossorigin="anonymous"></script>
+        {% load static %}
+        <link rel="shortcut icon"
+              href="{% static 'images/favicon.png' %}"
+              type="image/x-icon">
+    </head>
+    <body>
+        <nav class='navbar navbar-dark bg-dark navbar-expand-lg'>
+            <div class='container-fluid'>
+                <ul class='navbar-nav'>
+                    <li class='nav-item'>
+                        <a href={% url "home" %} class='nav-link'>Home</a>
+                    </li>
+                    <li class='nav-item'>
+                        <a href={% url "offers" %} class='nav-link'>Offers</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class='nav-item'>
+                            <a href="{% url "offer_form" %}" class='nav-link'>Add offer!</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <ul class='navbar-nav'>
+                    {% if user.is_authenticated %}
+                        <span class='navbar-text border-right'> Hello there {{ user }}
+                            <i class="bi bi-person-circle"></i>
+                        </span>
+                        <li class='nav-item'>
+                            <a href={% url "logout" %} class="nav-link">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class='nav-item'>
+                            <a href={% url "login" %} class='nav-link'>Login</a>
+                        </li>
+                        <li class='nav-item'>
+                            <a href="{% url "register" %}" class='nav-link'>Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        {% for message in  messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                 role="alert">
+                <strong>Message:</strong> {{ message }}
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+            </div>
+        {% endfor %}
+        <br>
+        <h2 class='d-flex justify-content-center'2>
+            {% block page_header %}
+            {% endblock page_header %}
+        </h2>
+        {% block content %}
+        {% endblock content %}
+        <script src="" async defer></script>
+    </body>
+</html>
