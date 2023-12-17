@@ -1,74 +1,66 @@
-from django.test import Client, TestCase
+from typing import Dict
+
+from django.http import HttpResponse
 
 from main_app.models import User
 
+login_path: str = "/login"
+register_path: str = "/register"
 
-class AuthenticationTestCase(TestCase):
-    def setUp(self):
-        # Arrange
-        self.client = Client()
-        self.username = "test_username"
-        self.password = "test_Password"
-        self.email = "test@example.com"
-        self.user = User.objects.create_user(
-            username=self.username,
-            password=self.password,
-            email=self.email,
-        )
 
-    def tearDown(self):
-        self.user.delete()
+def test_login_correct_credentials(client, users):
+    # Arrange
+    user_data: Dict[str:str] = {
+        "username": users[0].username,
+        "password": "test_password",
+    }
+    # Act
+    user_logged: client = client.login(**user_data)
+    # Assert
+    assert user_logged is True
 
-    def test_login_correct_credentaials(self):
-        # Act
-        url = self.client.get("/login")
-        user = self.client.login(
-            username=self.username,
-            password=self.password,
-        )
-        # Assert
-        self.assertEqual(url.status_code, 200)
-        self.assertTrue(user)
 
-    def test_login_incorrect_credentials(self):
-        # Act
-        url = self.client.get("/login")
-        user = self.client.login(username="wrong_user", password="wrong_pass")
-        # Assert
-        self.assertEqual(url.status_code, 200)
-        self.assertFalse(user)
+def test_login_wrong_credentials(client, users):
+    # Arrange
+    user_data: Dict[str:str] = {"username": "asdf", "password": "asdfpass"}
+    # Act
+    user_logged: client = client.login(**user_data)
+    # Assert
+    assert user_logged is False
 
-    def test_register_new_user(self):
-        # Arrange
-        path = "/register"
-        user_data = {
-            "username": "newUser",
-            "password1": self.password,
-            "password2": self.password,
-            "email": "new@email.com",
-        }
-        # Act
-        url = self.client.get(path)
-        response = self.client.post(path, user_data)
-        # Assert
-        self.assertEqual(url.status_code, 200)
-        self.assertEqual(response.status_code, 302)
 
-    def test_register_existing_user(self):
-        # Arrange
-        path = "/register"
-        user_data = {
-            "username": self.username,
-            "password1": self.password,
-            "password2": self.password,
-            "email": self.email,
-        }
-        # Act
-        url = self.client.get(path)
-        response = self.client.post(path, user_data)
-        # Assert
-        self.assertEqual(url.status_code, 200)
-        self.assertContains(
-            response,
-            "A user with that username already exists.",
-        )
+def test_register_new_user(client, users):
+    # Arrange
+    user_data: Dict[str, str] = {
+        "username": "new_test_user",
+        "email": "new_test@gmail.com",
+        "first_name": "Test",
+        "last_name": "User",
+        "password1": "test_password",
+        "password2": "test_password",
+    }
+    expected_message: str = f"Account created for {user_data['username']}"
+    # Act
+    response: Dict[str, str] = client.post(register_path, user_data, follow=True)
+    # Assert
+    assert expected_message in str(response.content)
+    assert User.objects.get(username=user_data["username"])
+
+
+def test_register_existing_user(client, users):
+    # Arrange
+    user_data: Dict[str, str] = {
+        "username": "test_user",
+        "email": "test@gmail.com",
+        "first_name": "Test",
+        "last_name": "User",
+        "password1": "test_password",
+        "password2": "test_password",
+    }
+    expected_message: str = "A user with that username already exists."
+    user_count: int = User.objects.all().count()
+    # Act
+    response: HttpResponse = client.post(register_path, user_data, follow=True)
+    # Assert
+    assert expected_message in str(response.content)
+    assert User.objects.all().count() == user_count
