@@ -46,28 +46,16 @@ def login(request):
     return render(request, "main_app/login.html", {"form": form})
 
 
+@login_required(login_url="/")
 def logout(request):
     auth.logout(request)
     messages.success(request, "Logged out")
     return redirect("home")
 
 
-@login_required
+@login_required(login_url="/login")
 def panel(request):
     return render(request, "main_app/panel.html")
-
-
-@login_required(login_url="/login")
-def offer_form(request):
-    form = OfferForm(request.POST or None)
-    if request.method == "POST":
-        if form.is_valid():
-            offer = form.save(commit=False)
-            offer.author = request.user
-            offer.save()
-            messages.success(request, "Offer added")
-            return redirect("offers")
-    return render(request, "main_app/offer_form.html", {"form": form})
 
 
 def offers(request):
@@ -80,25 +68,44 @@ def offers(request):
 
 
 @login_required(login_url="/login")
-def delete_offer(request, pk):
-    offer = get_object_or_404(JobOffer, id=pk)
-    if offer.author == request.user:
-        if request.method == "POST":
-            offer.delete()
-            messages.success(request, f"{offer.title} was deleted")
+def offer_form(request):
+    form = OfferForm()
+    if request.method == "POST":
+        form = OfferForm(request.POST)
+        if form.is_valid():
+            offer = form.save(commit=False)
+            offer.author = request.user
+            offer.save()
+            messages.success(request, "Offer added")
             return redirect("offers")
-    else:
-        messages.warning(request, "You do not have permission to delete this offer")
-        return redirect("offers")
-    return render(request, "main_app/delete_offer.html", {"offer": offer})
+    return render(request, "main_app/offer_form.html", {"form": form})
 
 
 @login_required(login_url="/login")
 def update_offer(request, pk):
     offer = get_object_or_404(JobOffer, id=pk)
+    form = OfferForm(instance=offer)
     if offer.author == request.user:
-        form = OfferForm(instance=offer)
+        if request.method == "POST":
+            form = OfferForm(request.POST, instance=offer)
+            if form.is_valid():
+                form.save()
+                return redirect("offers")
     else:
         messages.warning(request, "You do not have permission to edit this offer")
         return redirect("offers")
     return render(request, "main_app/offer_form.html", {"form": form})
+
+
+@login_required(login_url="/login")
+def delete_offer(request, pk):
+    offer = get_object_or_404(JobOffer, id=pk)
+    if offer.author == request.user:
+        if request.method == "POST":
+            offer.delete()
+            messages.success(request, f"{offer.title} offer was deleted")
+            return redirect("offers")
+    else:
+        messages.warning(request, "You do not have permission to delete this offer")
+        return redirect("offers")
+    return render(request, "main_app/delete_offer.html", {"offer": offer})
