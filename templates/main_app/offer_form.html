@@ -6,14 +6,12 @@
     Add offer
 {% endblock page_header %}
 {% block content %}
-    <form method="POST"
-          action="{% url 'offer_form' %}"
-          class='form-horizontal col-md-4 offset-md-4'>
+    <form method="POST" action="" class='form-horizontal col-md-4 offset-md-4'>
         {% csrf_token %}
         {{ form.as_p }}
         <br>
         <div class="d-grid gap-2">
-            <button class ='btn btn-primary' type='Submit'>Add offer</button>
+            <button class ='btn btn-primary' type='submit'>Submit</button>
         </div>
     </form>
 {% endblock content %}
