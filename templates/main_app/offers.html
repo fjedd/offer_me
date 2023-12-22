@@ -15,6 +15,7 @@
                     <p>Salary: {{ offer.salary }}</p>
                     <p>Location: {{ offer.location }}</p>
                     <p>{{ offer.description }}</p>
+                    <a href = {{ offer.url }}> {{ offer.url }}</a>
                     <p>Published: {{ offer.date_posted }}</p>
                     {% if offer.author == user %}
                         <a href={% url "delete_offer" offer.id %}><i class="bi bi-trash3"></i></a>
