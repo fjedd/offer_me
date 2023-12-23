@@ -91,7 +91,7 @@ def test_delete_offer_user_not_author(client, users, offers):
         "password": "test_password",
     }
     url: str = reverse(delete_url, kwargs={"pk": offer_id})
-    expected_message: str = "You do not have permission to delete this offer"
+    expected_message: str = "You do not have permission to modify this offer"
     offers_count: int = JobOffer.objects.all().count()
     # Act
     client.login(**user_data)
@@ -139,7 +139,7 @@ def test_update_offer_user_not_author(client, users, offers):
         "password": "test_password",
     }
     url: str = reverse(update_url, kwargs={"pk": offer_id})
-    expected_message: str = "You do not have permission to edit this offer"
+    expected_message: str = "You do not have permission to modify this offer"
     offers_count: int = JobOffer.objects.all().count()
     # Act
     client.login(**user_data)
