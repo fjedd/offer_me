@@ -5,5 +5,5 @@ from ..models import JobOffer
 
 class OffersView(ListView):
     model = JobOffer
-    template_name = "main_app/offers.html"
-    context_object_name = "job_offers"
+    template_name: str = "main_app/offers.html"
+    context_object_name: str = "job_offers"
