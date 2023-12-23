@@ -5,14 +5,15 @@ from django.shortcuts import redirect
 from django.views.generic import CreateView
 
 from forms.offer_form import OfferForm
+from main_app.models import JobOffer
 
 
 class OfferFormView(LoginRequiredMixin, CreateView):
-    template_name = "main_app/offer_form.html"
     form_class = OfferForm
+    template_name: str = "main_app/offer_form.html"
 
     def form_valid(self, form) -> HttpResponse:
-        offer = form.save(commit=False)
+        offer: JobOffer = form.save(commit=False)
         offer.author = self.request.user
         offer.save()
         messages.success(self.request, "Offer added")

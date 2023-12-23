@@ -11,6 +11,6 @@ from ..models import JobOffer
 @method_decorator(user_is_author, name="dispatch")
 class UpdateOfferView(LoginRequiredMixin, UpdateView):
     model = JobOffer
-    template_name = "main_app/offer_form.html"
     form_class = OfferForm
-    success_url = "/offers"
+    template_name: str = "main_app/offer_form.html"
+    success_url: str = "/offers"

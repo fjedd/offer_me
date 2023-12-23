@@ -20,12 +20,13 @@ def user_not_authenticated(func):
 def user_is_author(func):
     @wraps(func)
     def wrap(request, *args, **kwargs):
-        if request.user == JobOffer.objects.get(id=kwargs["pk"]).author:
-            return func(request, *args, **kwargs)
-        else:
-            messages.warning(
-                request, "You do not have permission to modify " "this offer"
-            )
+        try:
+            JobOffer.objects.get(id=kwargs.get("pk"), author=request.user)
+        except JobOffer.DoesNotExist:
+            messages.warning(request, "You do not have permission to modify this offer")
             return redirect("offers")
+        except ValueError:
+            return redirect("offers")
+        return func(request, *args, **kwargs)
 
     return wrap
