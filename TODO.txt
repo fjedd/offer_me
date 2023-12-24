@@ -1,4 +1,3 @@
-refactor views to separate classes
 add moderator group
 add test cases:
     - logout
