@@ -23,7 +23,10 @@ def test_add_offer_authenticated_user(client, users):
         "location": "Warsaw",
         "is_remote": "Hybrid",
         "salary": "240,000 USD",
-        "description": "Exciting opportunity for a skilled software engineer to join our dynamic team.",
+        "description": (
+            "Exciting opportunity for a skilled software engineer to join our dynamic"
+            " team."
+        ),
         "url": "https://example.com/software-engineer",
     }
     url: str = reverse(form_url)
@@ -48,7 +51,10 @@ def test_add_offer_not_authenticated_user(client, users):
         "location": "Warsaw",
         "is_remote": "Hybrid",
         "salary": "240,000 USD",
-        "description": "Exciting opportunity for a skilled software engineer to join our dynamic team.",
+        "description": (
+            "Exciting opportunity for a skilled software engineer to join our dynamic"
+            " team."
+        ),
         "url": "https://example.com/software-engineer",
     }
     url: str = reverse(form_url)
@@ -102,6 +108,28 @@ def test_delete_offer_user_not_author(client, users, offers):
     assert JobOffer.objects.get(id=offer_id)
 
 
+def test_delete_offer_user_not_author_has_change_perm(client, users, offers):
+    # Arrange
+    offer_id = offers[1].id
+    user_data: Dict[str:str] = {
+        "username": users[2].username,
+        "password": "test_password",
+    }
+    url: str = reverse(delete_url, kwargs={"pk": offer_id})
+    expected_message: str = (
+        f"{JobOffer.objects.get(id=offer_id).title} offer was deleted"
+    )
+    offers_count: int = JobOffer.objects.all().count()
+    # Act
+    client.login(**user_data)
+    response: HttpResponse = client.post(url, follow=True)
+    # Assert
+    assert expected_message in str(response.content)
+    assert JobOffer.objects.all().count() == offers_count - 1
+    with pytest.raises(JobOffer.DoesNotExist):
+        JobOffer.objects.get(id=offer_id).exists()
+
+
 def test_update_offer_user_is_author(client, users, offers):
     # Arrange
     offer_id = offers[0].id
@@ -116,7 +144,10 @@ def test_update_offer_user_is_author(client, users, offers):
         "location": "Warsaw",
         "is_remote": "Hybrid",
         "salary": "240,000 USD",
-        "description": "Exciting opportunity for a skilled software engineer to join our dynamic team.",
+        "description": (
+            "Exciting opportunity for a skilled software engineer to join our dynamic"
+            " team."
+        ),
         "url": "https://example.com/software-engineer",
     }
     url: str = reverse(update_url, kwargs={"pk": offer_id})
@@ -147,3 +178,35 @@ def test_update_offer_user_not_author(client, users, offers):
     # Assert
     assert JobOffer.objects.all().count() == offers_count
     assert expected_message in str(response.content)
+
+
+def test_update_offer_user_not_author_has_change_perm(client, users, offers):
+    # Arrange
+    offer_id = offers[1].id
+    user_data: Dict[str:str] = {
+        "username": users[2].username,
+        "password": "test_password",
+    }
+    update_data: Dict[str, str] = {
+        "author": users[1],
+        "title": "Python Developer",
+        "company": "Big City",
+        "location": "Warsaw",
+        "is_remote": "Hybrid",
+        "salary": "240,000 USD",
+        "description": (
+            "Exciting opportunity for a skilled software engineer to join our dynamic"
+            " team."
+        ),
+        "url": "https://example.com/software-engineer",
+    }
+    url: str = reverse(update_url, kwargs={"pk": offer_id})
+    offers_count: int = JobOffer.objects.all().count()
+    # Act
+    client.login(**user_data)
+    client.post(url, data=update_data, follow=True)
+    offer: JobOffer = JobOffer.objects.get(id=offer_id)
+    # Assert
+    assert JobOffer.objects.all().count() == offers_count
+    for key, expected_value in update_data.items():
+        assert getattr(offer, key) == expected_value
