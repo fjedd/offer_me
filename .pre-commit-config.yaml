@@ -1,3 +1,4 @@
+exclude: ^main_app/migrations/
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
@@ -11,7 +12,7 @@ repos:
     rev: 6.1.0
     hooks:
     -   id: flake8
-        exclude: '^main_app/migrations/|offer_me/settings.py$'
+        exclude: ^offer_me/settings.py
         args:
             - '--max-line-length=121'
             - '--max-complexity=10'
@@ -29,7 +30,6 @@ repos:
     rev: 23.11.0
     hooks:
       - id: black
-        exclude: ^migrations/
         language_version: python3.11
 -   repo: https://github.com/pycqa/isort
     rev: 5.12.0

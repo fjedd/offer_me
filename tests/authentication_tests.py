@@ -1,8 +1,7 @@
 from typing import Dict
 
+from django.contrib.auth.models import User
 from django.http import HttpResponse
-
-from main_app.models import User
 
 login_path: str = "/login"
 register_path: str = "/register"
