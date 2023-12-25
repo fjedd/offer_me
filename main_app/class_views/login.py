@@ -31,5 +31,5 @@ class LoginView(View):
             auth.login(request, user)
             return redirect(self.redirect_url)
         else:
-            messages.info(request, "Invalid credentials")
+            messages.warning(request, "Invalid credentials")
             return render(request, "main_app/login.html", {"form": self.form_class})

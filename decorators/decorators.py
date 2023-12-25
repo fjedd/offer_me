@@ -17,16 +17,19 @@ def user_not_authenticated(func):
     return wrap
 
 
-def user_is_author(func):
+def user_can_modify(func):
     @wraps(func)
     def wrap(request, *args, **kwargs):
-        try:
-            JobOffer.objects.get(id=kwargs.get("pk"), author=request.user)
-        except JobOffer.DoesNotExist:
-            messages.warning(request, "You do not have permission to modify this offer")
-            return redirect("offers")
-        except ValueError:
-            return redirect("offers")
+        if not request.user.has_perm("main_app.change_joboffer"):
+            try:
+                JobOffer.objects.get(id=kwargs.get("pk"), author=request.user)
+            except JobOffer.DoesNotExist:
+                messages.warning(
+                    request, "You do not have permission to modify this offer"
+                )
+                return redirect("offers")
+            except ValueError:
+                return redirect("offers")
         return func(request, *args, **kwargs)
 
     return wrap

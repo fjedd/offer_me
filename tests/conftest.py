@@ -1,6 +1,7 @@
 from typing import Dict, List
 
 import pytest
+from django.contrib.auth.models import Permission
 from django.test import Client
 
 from main_app.models import JobOffer, User
@@ -29,11 +30,21 @@ def users(db) -> List[User]:
             "email": "test2@gmail.com",
             "first_name": "Second",
             "last_name": "User",
-            "password": "second_password",
+            "password": "test_password",
+        },
+        {
+            "username": "moderator_user",
+            "email": "moderator@gmail.com",
+            "first_name": "Moderator",
+            "last_name": "User",
+            "password": "test_password",
         },
     ]
 
-    return [User.objects.create_user(**data) for data in user_data]
+    users: List[User] = [User.objects.create_user(**data) for data in user_data]
+    perm: Permission = Permission.objects.get(codename="change_joboffer")
+    users[2].user_permissions.add(perm)
+    return users
 
 
 @pytest.fixture
@@ -49,7 +60,10 @@ def offers(db, users) -> JobOffer:
             "location": "San Francisco",
             "is_remote": "Hybrid",
             "salary": "120 000",
-            "description": "Exciting opportunity for a skilled software engineer to join our dynamic team.",
+            "description": (
+                "Exciting opportunity for a skilled software engineer to join our"
+                " dynamic team."
+            ),
             "url": "https://example.com/software-engineer",
         },
         {
@@ -59,7 +73,10 @@ def offers(db, users) -> JobOffer:
             "location": "New York",
             "is_remote": "Remote",
             "salary": "100 000",
-            "description": "Seeking a talented data scientist to drive innovation in data analysis and modeling.",
+            "description": (
+                "Seeking a talented data scientist to drive innovation in data analysis"
+                " and modeling."
+            ),
             "url": "https://example.com/data-scientist",
         },
     ]

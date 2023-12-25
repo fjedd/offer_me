@@ -3,12 +3,12 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.decorators import method_decorator
 from django.views.generic import DeleteView
 
-from decorators.decorators import user_is_author
+from decorators.decorators import user_can_modify
 
 from ..models import JobOffer
 
 
-@method_decorator(user_is_author, name="dispatch")
+@method_decorator(user_can_modify, name="dispatch")
 class DeleteOfferView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = JobOffer
     template_name: str = "main_app/delete_offer.html"
