@@ -55,7 +55,7 @@ class Command(BaseCommand):
                 ),
                 "url": f"https://example.com/offer{i}",
             }
-            for i in range(10)
+            for i in range(200)
         ]
 
         self.stdout.write(self.style.SUCCESS("Creating job offers..."))
