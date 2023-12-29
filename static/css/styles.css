@@ -1,0 +1,30 @@
+:root{
+    --nav-bg-color: #000ab0;
+    --nav-primary-color: #ffffff;
+    --nav-hover-color: #9dafff;
+
+}
+body {
+    font-family: Roboto,sans-serif;
+}
+nav {
+    background-color: var(--nav-bg-color);
+}
+a.nav-link {
+    font-weight: 500;
+    color: var(--nav-primary-color);
+}
+a.nav-link:hover {
+    color: var(--nav-hover-color);
+}
+.page-item.active>.page-link{
+    background-color: var(--nav-bg-color);
+    color: var(--nav-primary-color);
+}
+.page-link {
+    color: var(--nav-bg-color);
+}
+.page-link:hover {
+    background-color: var(--nav-hover-color);
+    color: var(--nav-bg-color)
+}
