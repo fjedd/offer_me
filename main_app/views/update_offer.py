@@ -2,9 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 
-from decorators.decorators import user_can_modify
 from forms.offer_form import OfferForm
 
+from ..decorators import user_can_modify
 from ..models import JobOffer
 
 

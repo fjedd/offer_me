@@ -21,3 +21,6 @@ class JobOffer(models.Model):
     description = models.TextField(max_length=500)
     date_posted = models.DateField(auto_now_add=True)
     url = models.URLField(max_length=500)
+
+    def __str__(self):
+        return self.title

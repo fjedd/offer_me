@@ -14,7 +14,7 @@ Platform used to post job offers
 #### Example data
 
 To populate database with example data execute command
-- ```docker-compose exec app python manage.py example_data```
+- ```docker-compose exec app ./manage.py create_example_data```
 
 It will create offers (http://localhost:8000/offers) and users
 Login at http://localhost:8000/login

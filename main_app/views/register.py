@@ -2,8 +2,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 
-from decorators.decorators import user_not_authenticated
 from forms.register_form import RegisterForm
+
+from ..decorators import user_not_authenticated
 
 
 @method_decorator(user_not_authenticated, name="dispatch")
