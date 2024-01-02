@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .class_views import (
+from .views import (
     delete_offer,
     home,
     login,
@@ -9,6 +9,7 @@ from .class_views import (
     offers,
     panel,
     register,
+    search_offers,
     update_offer,
     user_offers,
 )
@@ -21,6 +22,7 @@ urlpatterns = [
     path("panel", panel.UserPanelView.as_view(), name="panel"),
     path("offers", offers.OffersView.as_view(), name="offers"),
     path("user_offers", user_offers.UserOffersView.as_view(), name="user_offers"),
+    path("search", search_offers.SearchOffersView.as_view(), name="search_offers"),
     path("offer_form", offer_form.OfferFormView.as_view(), name="offer_form"),
     path(
         "delete_offer/<str:pk>",

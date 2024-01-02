@@ -8,8 +8,9 @@ from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 
-from decorators.decorators import user_not_authenticated
 from forms.login_form import LoginForm
+
+from ..decorators import user_not_authenticated
 
 
 @method_decorator(user_not_authenticated, name="dispatch")
