@@ -11,27 +11,39 @@ from main_app.models import JobOffer
 
 class Command(BaseCommand):
     help: str = "Create example users and JobOffers"
+    user_data: List[Dict[str, str]] = [
+        {
+            "username": "testuser1",
+            "email": "test@email.com",
+            "first_name": "Test",
+            "last_name": "User",
+            "password": "test_password",
+        },
+        {
+            "username": "testuser2",
+            "email": "test2@email.com",
+            "first_name": "Second",
+            "last_name": "User",
+            "password": "second_password",
+        },
+    ]
+    job_types: List[str] = ["Remote", "Hybrid", "Office"]
+    job_seniority: List[str] = ["Junior ", "Mid ", "Senior ", ""]
+    job_title: List[str] = [
+        "Python Developer",
+        "DevOps",
+        "Django Developer",
+        "Full-Stack Developer",
+        "Software Engineer",
+        ".NET Dev",
+        "Frontend Programmer",
+    ]
 
     def handle(self, *args, **kwargs) -> None:
         self.stdout.write(self.style.SUCCESS("Creating users..."))
-        user_data: List[Dict[str, str]] = [
-            {
-                "username": "testuser1",
-                "email": "test@email.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password": "test_password",
-            },
-            {
-                "username": "testuser2",
-                "email": "test2@email.com",
-                "first_name": "Second",
-                "last_name": "User",
-                "password": "second_password",
-            },
-        ]
+
         try:
-            users = [User.objects.create_user(**data) for data in user_data]
+            users = [User.objects.create_user(**data) for data in self.user_data]
         except IntegrityError:
             self.stdout.write(self.style.ERROR("Data already created."))
             sys.exit(1)
@@ -39,10 +51,10 @@ class Command(BaseCommand):
         offers_data: List[Dict[str, Any]] = [
             {
                 "author": choice(users),
-                "title": f"Offer {i}",
+                "title": f"{choice(self.job_seniority)}{choice(self.job_title)}",
                 "company": f"Company {i}",
                 "location": f"City {i}",
-                "is_remote": choice(["Remote", "Hybrid", "Office"]),
+                "is_remote": choice(self.job_types),
                 "salary": randint(6000, 10000),
                 "description": (
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"

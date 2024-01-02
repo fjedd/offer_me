@@ -3,8 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.decorators import method_decorator
 from django.views.generic import DeleteView
 
-from decorators.decorators import user_can_modify
-
+from ..decorators import user_can_modify
 from ..models import JobOffer
 
 
