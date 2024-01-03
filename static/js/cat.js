@@ -1,4 +1,3 @@
-
 const url = "https://api.thecatapi.com/v1/images/search";
 const container = document.getElementById("catContainer");
 const button = document.getElementById("catButton");
