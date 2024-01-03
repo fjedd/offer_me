@@ -21,6 +21,7 @@ Login at http://localhost:8000/login
 
 
 Credentials:
+
 User 1 `Username: testuser1 Password: test_password`
 
 User 2 `Username: testuser2 Password: second_password`
