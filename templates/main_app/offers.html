@@ -7,38 +7,51 @@
         Job offers
     {% endif %}
 {% endblock title %}
-{% block content %}
+{% block page_header %}
     {% if request.path == "/user_offers" %}
-        <h2 class='text-center'>Your offers:</h2>
+        <h2 class='text-center mb-5'>Your offers:</h2>
     {% else %}
-        <h2 class='text-center'>Job offers:</h2>
+        <h2 class='text-center mb-5'>Job offers:</h2>
     {% endif %}
-    <hr>
+{% endblock page_header %}
+{% block content %}
     {% comment %} OFFERS {% endcomment %}
-    {% if request.path == "/search" %}
-        <div class="text-center text-muted">
-            <p>{{ offers_count }} offers for "{{ keyword }}"</p>
-        </div>
-        <hr>
-    {% endif %}
     <div class='container'>
+        {% if request.path == "/search" %}
+            <div class="text-muted text-center">
+                <p>{{ offers_count }} offers for "{{ keyword }}"</p>
+            </div>
+        {% endif %}
         {% if job_offers %}
             {% for offer in job_offers %}
-                <div class="text-center">
-                    <h2>{{ offer.title }}</h2>
-                    <p>Author: {{ offer.author }}</p>
-                    <p>Company: {{ offer.company }}</p>
-                    <p>Salary: {{ offer.salary }}</p>
-                    <p>Location: {{ offer.location }}</p>
-                    <p>{{ offer.description }}</p>
-                    <a href = {{ offer.url }}> {{ offer.url }}</a>
-                    <p>Published: {{ offer.date_posted }}</p>
-                    {% if offer.author == user or perms.main_app.change_joboffer %}
-                        <a href={% url "delete_offer" offer.id %}><i class="bi bi-trash3 text-danger"></i></a>
-                        <a href={% url "update_offer" offer.id %}>
-                            <i class="bi bi-pencil text-warning"></i></a>
-                    {% endif %}
-                    <hr>
+                <div class="card text-center mb-2">
+                    <div class="card-header">
+                        <h2>{{ offer.title }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Author: {{ offer.author }}</p>
+                        <p>Company: {{ offer.company }}</p>
+                        <p>Salary: {{ offer.salary }}</p>
+                        <p>Location: {{ offer.location }}</p>
+                        <p>{{ offer.description }}</p>
+                        <a href = {{ offer.url }}> {{ offer.url }}</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="row">
+                            <div class="col text-start">
+                                <p>Published: {{ offer.date_posted }}</p>
+                            </div>
+                            {% if offer.author == user or perms.main_app.change_joboffer %}
+                                <div class="col-md-auto">
+                                    <a href={% url "update_offer" offer.id %}>
+                                        <i class="bi bi-pencil text-warning"></i></a>
+                                </div>
+                                <div class="col-md-auto">
+                                    <a href={% url "delete_offer" offer.id %}><i class="bi bi-trash3 text-danger"></i></a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         </div>
@@ -58,7 +71,7 @@
     <ul class="pagination justify-content-center">
         {% if page_obj.has_previous %}
             <li class="page-item">
-                <a class="page-link"
+                <a class="page-link text-dark"
                    href="?{% get_page_href request %}page={{ page_obj.previous_page_number }}"
                    aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
@@ -81,13 +94,14 @@
                 </li>
             {% else %}
                 <li class="page-item">
-                    <a class="page-link" href="?{% get_page_href request %}page={{ i }}">{{ i }}</a>
+                    <a class="page-link text-dark"
+                       href="?{% get_page_href request %}page={{ i }}">{{ i }}</a>
                 </li>
             {% endif %}
         {% endfor %}
         {% if page_obj.has_next %}
             <li class="page-item">
-                <a class="page-link"
+                <a class="page-link text-dark"
                    href="?{% get_page_href request %}page={{ page_obj.next_page_number }}"
                    aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>

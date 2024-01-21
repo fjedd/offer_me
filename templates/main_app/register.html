@@ -14,7 +14,9 @@
             {{ field }}
             <br>
         {% endfor %}
-        <button type="submit" class ='btn btn-primary'>Register account</button>
+        <div class="d-grid gap-2">
+            <button type="submit" class ='btn btn-primary'>Register account</button>
+        </div>
     </form>
     <a href={% url "login" %} class='btn btn-link col-md-4 offset-md-4'>Return to login page</a>
 {% endblock content %}
