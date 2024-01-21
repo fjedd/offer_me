@@ -52,7 +52,6 @@ class Command(BaseCommand):
         except IntegrityError:
             users = User.objects.all()
             self.stdout.write(self.style.WARNING("Users already created."))
-            pass
 
         offers_data: List[Dict[str, Any]] = [
             {
