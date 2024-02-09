@@ -41,7 +41,14 @@ class Command(BaseCommand):
                 ".NET Dev",
                 "Frontend Programmer",
             ],
-            "companies": ["Google", "Amazon", "Comarch", "Sii", "EY", "Netflix"],
+            "companies": [
+                "Google",
+                "Amazon",
+                "Comarch",
+                "Sii",
+                "EY",
+                "Netflix",
+            ],
             "locations": [
                 country.name for country in countries if len(country.name) < 20
             ],

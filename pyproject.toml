@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "offer-me"
+version = "0.1.0"
+description = ""
+authors = ["fjed <d.ostapczuk1@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "5.0.0"
+pre-commit = "3.5.0"
+pycountry = "23.12.11"
+python-dotenv = "1.0.0"
+psycopg2 = "2.9.9"
+
+[tool.poetry.group.test.dependencies]
+pytest = "7.4.3"
+pytest-django = "4.7.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
