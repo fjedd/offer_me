@@ -10,7 +10,8 @@ services:
     build:
       context: .
       dockerfile: "dockerfile"
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    stdin_open: true
     volumes:
       - .:/app
     ports:

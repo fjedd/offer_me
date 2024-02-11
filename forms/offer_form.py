@@ -1,6 +1,6 @@
 from django import forms
 
-from main_app.models import JobOffer
+from app.models import JobOffer
 
 
 class OfferForm(forms.ModelForm):
@@ -15,12 +15,31 @@ class OfferForm(forms.ModelForm):
             "description",
             "url",
         ]
+        labels = {"is_remote": "Type"}
         widgets = {
-            "title": forms.TextInput(attrs={"class": "form-control"}),
-            "company": forms.TextInput(attrs={"class": "form-control"}),
-            "location": forms.TextInput(attrs={"class": "form-control"}),
-            "is_remote": forms.Select(attrs={"class": "form-control"}),
-            "salary": forms.NumberInput(attrs={"class": "form-control"}),
-            "description": forms.Textarea(attrs={"class": "form-control"}),
-            "url": forms.URLInput(attrs={"class": "form-control"}),
+            "title": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Title"}
+            ),
+            "company": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Company"}
+            ),
+            "location": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Location"}
+            ),
+            "is_remote": forms.Select(
+                attrs={"class": "form-control", "placeholder": "Type"}
+            ),
+            "salary": forms.NumberInput(
+                attrs={"class": "form-control", "placeholder": "Salary"}
+            ),
+            "description": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Description",
+                    "style": "height: 100px",
+                }
+            ),
+            "url": forms.URLInput(
+                attrs={"class": "form-control", "placeholder": "Url"}
+            ),
         }
