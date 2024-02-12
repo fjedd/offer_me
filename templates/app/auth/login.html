@@ -1,0 +1,31 @@
+{% extends "app/base.html" %}
+{% block title %}
+    Login
+{% endblock title %}
+{% block page_header %}
+    Login
+{% endblock page_header %}
+{% block content %}
+    {{ form.errors }}
+    <form action=""
+          method="POST"
+          class='form-horizontal col-md-4 offset-md-4 mb-2 pt-3'>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-floating mb-3">
+                {{ field }}
+                <label for={{ field.auto_id }}>{{ field.label }}
+                </label>
+            </div>
+        {% endfor %}
+        <div class="d-grid gap-2">
+            <button type="submit" class ='btn btn-primary'>Login</button>
+        </div>
+    </form>
+    <p class='col-md-4 offset-md-4 text-center'>
+        No account? <a href={% url "register" %}>Register page</a>
+    </p>
+    <p class='col-md-4 offset-md-4 text-center'>
+        Forgot password? <a href={% url "password_reset" %}>Reset password</a>
+    </p>
+{% endblock content %}

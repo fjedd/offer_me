@@ -4,7 +4,7 @@ import pytest
 from django.contrib.auth.models import Permission
 from django.test import Client
 
-from main_app.models import JobOffer, User
+from app.models import JobOffer, User
 
 
 @pytest.fixture

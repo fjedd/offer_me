@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome to Offer Me {{ username }}</title>
+    </head>
+    <body style="text-align: center;">
+        <div>
+            <h2>Welcome to Offer Me {{ username }}!</h2>
+            <p>Thank you for creating an account</p>
+            <p>Click the button below to login and start exploring.</p>
+            <p>
+                <a href="{{ protocol }}://{{ domain }}{% url 'login' %}"
+                   style="display: inline-block;
+                          padding: 10px 20px;
+                          background-color: #007bff;
+                          color: #fff;
+                          text-decoration: none;
+                          border-radius: 5px">Login Now</a>
+            </p>
+        </div>
+    </body>
+</html>
