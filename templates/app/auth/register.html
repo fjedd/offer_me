@@ -1,0 +1,26 @@
+{% extends "app/base.html" %}
+{% block title %}
+    Registration
+{% endblock title %}
+{% block page_header %}
+    Register
+{% endblock page_header %}
+{% block content %}
+    <form action=""
+          method="POST"
+          class='form-horizontal col-md-4 offset-md-4 mb-2 pt-3'>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-floating mb-3">
+                {{ field }}
+                <label for={{ field.auto_id }}>{{ field.label }}
+                </label>
+            </div>
+            <small class='form-text text-danger'>{{ field.errors }}</small>
+        {% endfor %}
+        <div class="d-grid gap-2">
+            <button type="submit" class ='btn btn-primary'>Register account</button>
+        </div>
+    </form>
+    <a href={% url "login" %} class='btn btn-link col-md-4 offset-md-4'>Return to login page</a>
+{% endblock content %}

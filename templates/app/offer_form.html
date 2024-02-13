@@ -1,0 +1,25 @@
+{% extends "app/base.html" %}
+{% block title %}
+    Offer form
+{% endblock title %}
+{% block page_header %}
+    Add offer
+{% endblock page_header %}
+{% block content %}
+    <form method="POST"
+          action=""
+          class='form-horizontal col-md-4 offset-md-4 mb-2 pt-3'>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-floating mb-3">
+                {{ field }}
+                <label for={{ field.auto_id }}>{{ field.label }}
+                </label>
+            </div>
+            <small class='form-text'>{{ field.errors }}</small>
+        {% endfor %}
+        <div class="d-grid gap-2">
+            <button class ='btn btn-primary' type='submit'>Submit</button>
+        </div>
+    </form>
+{% endblock content %}

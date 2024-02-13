@@ -4,7 +4,7 @@ import pytest
 from django.http import HttpResponse
 from django.urls import reverse
 
-from main_app.models import JobOffer
+from app.models import JobOffer
 
 form_url: str = "offer_form"
 delete_url: str = "delete_offer"
