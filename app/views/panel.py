@@ -1,5 +1,6 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
+
+from app.mixins.login_required_mixin import LoginRequiredMixin
 
 
 class UserPanelView(LoginRequiredMixin, TemplateView):

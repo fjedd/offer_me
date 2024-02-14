@@ -58,7 +58,7 @@ def test_add_offer_not_authenticated_user(client, users):
         "url": "https://example.com/software-engineer",
     }
     url: str = reverse(form_url)
-    expected_redirect: Tuple[str, int] = ("/login?next=/offer_form", 302)
+    expected_redirect: Tuple[str, int] = ("/login", 302)
     offers_count: int = JobOffer.objects.all().count()
     # Act
     response: HttpResponse = client.post(url, data=offer_data, follow=True)
@@ -210,3 +210,23 @@ def test_update_offer_user_not_author_has_change_perm(client, users, offers):
     assert JobOffer.objects.all().count() == offers_count
     for key, expected_value in update_data.items():
         assert getattr(offer, key) == expected_value
+
+
+def test_search_empty_query_no_results(client, offers):
+    # Arrange
+    query: str = ""
+    url: str = f"{reverse('search_offers')}?q={query}"
+    # Act
+    response: HttpResponse = client.get(url)
+    # Assert
+    assert response.context["offers_count"] == 0
+
+
+def test_search_single_result_query(client, offers):
+    # Arrange
+    query: str = "Software Engineer"
+    url: str = f"{reverse('search_offers')}?q={query}"
+    # Act
+    response: HttpResponse = client.get(url)
+    # Assert
+    assert response.context["offers_count"] == 1
