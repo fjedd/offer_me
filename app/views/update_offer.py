@@ -1,8 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 
+from app.mixins.login_required_mixin import LoginRequiredMixin
 from forms.offer_form import OfferForm
 
 from ..decorators import user_can_modify

@@ -1,9 +1,9 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import CreateView
 
+from app.mixins.login_required_mixin import LoginRequiredMixin
 from app.models import JobOffer
 from forms.offer_form import OfferForm
 

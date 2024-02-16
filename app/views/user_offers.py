@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from app.mixins.login_required_mixin import LoginRequiredMixin
 
 from ..models import JobOffer
 from .offers import OffersView
