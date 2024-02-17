@@ -2,7 +2,8 @@ from typing import Any, Dict
 
 from django.db.models import Q, QuerySet
 
-from ..models import JobOffer
+from app.models import JobOffer
+
 from .offers import OffersView
 
 

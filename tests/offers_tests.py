@@ -58,7 +58,7 @@ def test_add_offer_not_authenticated_user(client, users):
         "url": "https://example.com/software-engineer",
     }
     url: str = reverse(form_url)
-    expected_redirect: Tuple[str, int] = ("/login", 302)
+    expected_redirect: Tuple[str, int] = (reverse("login"), 302)
     offers_count: int = JobOffer.objects.all().count()
     # Act
     response: HttpResponse = client.post(url, data=offer_data, follow=True)

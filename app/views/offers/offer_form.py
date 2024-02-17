@@ -10,7 +10,7 @@ from forms.offer_form import OfferForm
 
 class OfferFormView(LoginRequiredMixin, CreateView):
     form_class = OfferForm
-    template_name: str = "app/offer_form.html"
+    template_name: str = "app/offers/offer_form.html"
 
     def form_valid(self, form) -> HttpResponse:
         offer: JobOffer = form.save(commit=False)

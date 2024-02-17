@@ -14,7 +14,7 @@ from forms.login_form import LoginForm
 
 @method_decorator(user_not_authenticated, name="dispatch")
 class LoginView(View):
-    template_name: str = "app/auth/login.html"
+    template_name: str = "app/account/login.html"
     redirect_url: str = "/"
     form_class = LoginForm
 
@@ -32,4 +32,4 @@ class LoginView(View):
             return redirect(self.redirect_url)
         else:
             messages.warning(request, "Invalid credentials")
-            return render(request, "app/auth/login.html", {"form": self.form_class})
+            return render(request, "app/account/login.html", {"form": self.form_class})
