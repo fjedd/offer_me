@@ -16,7 +16,7 @@ from ...decorators import user_not_authenticated
 @method_decorator(user_not_authenticated, name="dispatch")
 class RegisterView(SuccessMessageMixin, CreateView):
     form_class = RegisterForm
-    template_name: str = "app/auth/register.html"
+    template_name: str = "app/account/register.html"
     success_url: str = "login"
     email_from = settings.EMAIL_HOST_USER
 

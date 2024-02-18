@@ -1,6 +1,0 @@
-add moderator group
-add test cases:
-    - logout
-    - login/register if user is authenticated
-
-play with frontend
