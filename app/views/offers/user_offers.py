@@ -1,6 +1,6 @@
 from app.mixins.login_required_mixin import LoginRequiredMixin
+from app.models import JobOffer
 
-from ..models import JobOffer
 from .offers import OffersView
 
 
