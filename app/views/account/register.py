@@ -27,6 +27,7 @@ class RegisterView(SuccessMessageMixin, CreateView):
         data: Dict[str, str] = form.cleaned_data
         context: Dict[str, str] = {
             "username": data["username"],
+            "request": self.request,
         }
         email: EmailMessage = EmailMessage(
             subject="Offer Me Account registered",
