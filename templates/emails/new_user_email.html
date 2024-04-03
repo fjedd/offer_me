@@ -11,7 +11,8 @@
             <p>Thank you for creating an account</p>
             <p>Click the button below to login and start exploring.</p>
             <p>
-                <a href="{{ request.scheme }}://{{ request.get_host }}{% url 'login' %}"
+                <a id="loginLink"
+                   href="{{ request.scheme }}://{{ request.get_host }}{% url 'login' %}"
                    style="display: inline-block;
                           padding: 10px 20px;
                           background-color: #007bff;
