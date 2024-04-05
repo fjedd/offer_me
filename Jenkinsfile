@@ -2,12 +2,12 @@ pipeline {
     agent any
     environment {
         COMPOSE_FILE = "docker-compose.yml"
+        DOCKERFILE = "Dockerfile-jenkins"
         POSTGRES_DB = "postgres"
         POSTGRES_USERNAME = "postgres"
         POSTGRES_PASSWORD = "postgres"
         POSTGRES_HOST = "db"
         POSTGRES_PORT = "5432"
-
     }
     stages {
         stage("Build and start image") {
