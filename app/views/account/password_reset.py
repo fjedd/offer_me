@@ -9,14 +9,17 @@ from django.contrib.auth.views import PasswordResetView as BasePasswordResetView
 from django.utils.decorators import method_decorator
 
 from app.decorators import user_not_authenticated
+from core.settings import EMAIL_HOST_USER
 from forms.password_reset_form import PasswordChangeForm, PasswordResetForm
 
 
 @method_decorator(user_not_authenticated, name="dispatch")
 class PasswordResetView(BasePasswordResetView):
+    from_email = EMAIL_HOST_USER
     template_name = "app/account/password_reset_form.html"
     form_class = PasswordResetForm
     html_email_template_name = "emails/password_reset_email.html"
+    email_template_name = "emails/password_reset_email.html"
     subject_template_name = "emails/password_reset_subject.txt"
 
 
