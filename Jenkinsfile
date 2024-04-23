@@ -17,10 +17,22 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+        stage('Run tests') {
             steps {
                 script {
-                    sh 'docker-compose exec -T pytest'
+                    sh 'docker-compose exec app -T pytest'
+
+                }
+            }
+        }
+
+        stage('Run automatic web tests') {
+            steps {
+                script {
+                    echo "Creating example data"
+                    sh 'docker-compose exec app -T python manage.py create_example_data'
+                    echo "Starting web tests"
+                    sh 'docker-compose exec test -T pytest'
                 }
             }
         }
