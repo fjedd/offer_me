@@ -11,6 +11,8 @@ from core.settings import EMAIL_HOST_USER
 register_url: str = reverse("register")
 reset_password_url: str = reverse("password_reset")
 
+FROM_EMAIL: str = EMAIL_HOST_USER or "webmaster@localhost"
+
 
 @pytest.mark.django_db
 def test_register_email(client):
@@ -24,7 +26,7 @@ def test_register_email(client):
     }
     expected_data: Dict[str, str] = {
         "subject": "Offer Me Account registered",
-        "from_email": EMAIL_HOST_USER,
+        "from_email": FROM_EMAIL,
         "to_email": user_data["email"],
         "link_url": "http://testserver/account/login",
     }
@@ -47,7 +49,7 @@ def test_password_reset_email(client, users):
     post_data: Dict[str, str] = {"email": users[0].email}
     expected_data: Dict[str, str] = {
         "subject": "Password reset request",
-        "from_email": EMAIL_HOST_USER,
+        "from_email": FROM_EMAIL,
         "to_email": users[0].email,
         "link_url": "http://testserver/account/login",
     }
