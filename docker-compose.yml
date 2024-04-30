@@ -1,16 +1,18 @@
 version: "3.8"
 services:
   db:
-    image: postgres:16.0
+    image: postgres:16.2-alpine3.19
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_USER=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
   app:
     build:
       context: .
-      dockerfile: ${DOCKERFILE}
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+      dockerfile: Dockerfile-dev
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     stdin_open: true
     volumes:
       - .:/app
@@ -23,3 +25,12 @@ services:
     restart: always
     depends_on:
       - db
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile-test
+    tty: true
+    volumes:
+      - ./automated_tests:/tests
+    depends_on:
+      - app
