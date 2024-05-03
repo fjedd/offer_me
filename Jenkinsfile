@@ -29,7 +29,9 @@ pipeline {
             steps {
                 script {
                     sh 'docker-compose exec -T app python manage.py create_example_data'
+                    sh "ls -lah"
                     sh 'docker-compose exec -T test pytest -p no:cacheprovider'
+                    sh 'rm .auth/state.json'
                 }
             }
         }
