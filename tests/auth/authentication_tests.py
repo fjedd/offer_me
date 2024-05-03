@@ -34,7 +34,7 @@ def test_register_new_user(client, users):
     # Arrange
     user_data: Dict[str, str] = {
         "username": "new_test_user",
-        "email": "new_test@gmail.com",
+        "email": "new_test@example.com",
         "first_name": "Test",
         "last_name": "User",
         "password1": "test_password",
@@ -52,7 +52,7 @@ def test_register_existing_user(client, users):
     # Arrange
     user_data: Dict[str, str] = {
         "username": "test_user",
-        "email": "test@gmail.com",
+        "email": "test@example.com",
         "first_name": "Test",
         "last_name": "User",
         "password1": "test_password",

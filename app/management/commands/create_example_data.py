@@ -16,14 +16,14 @@ class Command(BaseCommand):
         user_data: List[Dict[str, str]] = [
             {
                 "username": "testuser1",
-                "email": "test@email.com",
+                "email": "test@example.com",
                 "first_name": "Test",
                 "last_name": "User",
                 "password": "test_password",
             },
             {
                 "username": "testuser2",
-                "email": "test2@email.com",
+                "email": "test2@examnple.com",
                 "first_name": "Second",
                 "last_name": "User",
                 "password": "second_password",

@@ -18,7 +18,7 @@ FROM_EMAIL: str = EMAIL_HOST_USER or "webmaster@localhost"
 def test_register_email(client):
     user_data: Dict[str, str] = {
         "username": "new_test_user",
-        "email": "new_test@gmail.com",
+        "email": "new_test@example.com",
         "first_name": "Test",
         "last_name": "User",
         "password1": "test_password",
