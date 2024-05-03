@@ -16,3 +16,4 @@ media
 # Python #
 *.py[cod]
 *$py.class
+automated_tests/.auth/state.json

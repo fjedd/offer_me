@@ -42,11 +42,13 @@
                             <a href={% url "home" %} class='nav-link'>Home</a>
                         </li>
                         <li class='nav-item'>
-                            <a href={% url "offers" %} class='nav-link'>Offers</a>
+                            <a data-testid="offers-button" href={% url "offers" %} class='nav-link'>Offers</a>
                         </li>
                         {% if user.is_authenticated %}
                             <li class='nav-item'>
-                                <a href="{% url "offer_form" %}" class='nav-link'>Add offer!</a>
+                                <a data-testid="add-offer-button"
+                                   href="{% url "offer_form" %}"
+                                   class='nav-link'>Add offer!</a>
                             </li>
                         {% endif %}
                         <ul>
@@ -61,20 +63,25 @@
                                            role="button"
                                            data-toggle="dropdown"
                                            aria-haspopup="true"
-                                           aria-expanded="false"><i class="bi bi-person-circle"></i> {{ user }} </a>
+                                           aria-expanded="false"
+                                           data-testid="user-dropdown"><i class="bi bi-person-circle"></i> {{ user }} </a>
                                         <div class="dropdown-menu dropdown-menu-left"
                                              aria-labelledby="navbarDropdown">
                                             <a class="dropdown-item" href={% url "panel" %}>User panel</a>
                                             <a class="dropdown-item" href={% url "user_offers" %}>Your offers</a>
-                                            <a class="dropdown-item" href={% url "logout" %}>Logout</a>
+                                            <a data-testid="logout-button"
+                                               class="dropdown-item"
+                                               href="{% url "logout" %}">Logout</a>
                                         </div>
                                     </li>
                                 {% else %}
                                     <li class='nav-item'>
-                                        <a href={% url "login" %} class='nav-link'>Login</a>
+                                        <a data-testid="login-button" href={% url "login" %} class='nav-link'>Login</a>
                                     </li>
                                     <li class='nav-item me-4'>
-                                        <a href="{% url "register" %}" class='nav-link'>Register</a>
+                                        <a data-testid="register-button"
+                                           href="{% url "register" %}"
+                                           class='nav-link'>Register</a>
                                     </li>
                                 {% endif %}
                                 <form class='form-inile' action="{% url 'search_offers' %}" method="GET">
