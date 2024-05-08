@@ -20,7 +20,8 @@ pipeline {
         stage('Run tests') {
             steps {
                 script {
-                    sh 'docker-compose exec -T app pytest -p no:cacheprovider'
+//                     sh 'docker-compose exec -T app pytest -p no:cacheprovider'
+                    sh 'docker-compose exec -T app pytest'
                 }
             }
         }
@@ -29,7 +30,8 @@ pipeline {
             steps {
                 script {
                     sh 'docker-compose exec -T app python manage.py create_example_data'
-                    sh 'docker-compose exec -T test pytest -p no:cacheprovider'
+//                     sh 'docker-compose exec -T test pytest -p no:cacheprovider'
+                    sh 'docker-compose exec -T test pytest'
                 }
             }
         }
