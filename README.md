@@ -29,3 +29,8 @@ User 2 `Username: testuser2 Password: second_password`
 ### Testing
 
 * Use `docker-compose exec app pytest` to run the tests.
+
+
+#### To run end-to-end test
+* Populate database (`docker-compose exec app ./manage.py create_example_data`)
+* Run tests `docker-compose exec test pytest`

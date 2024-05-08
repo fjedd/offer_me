@@ -20,21 +20,21 @@ def users(db) -> List[User]:
     user_data = [
         {
             "username": "test_user",
-            "email": "test@gmail.com",
+            "email": "test@example.com",
             "first_name": "Test",
             "last_name": "User",
             "password": "test_password",
         },
         {
             "username": "user2",
-            "email": "test2@gmail.com",
+            "email": "test2@example.com",
             "first_name": "Second",
             "last_name": "User",
             "password": "test_password",
         },
         {
             "username": "moderator_user",
-            "email": "moderator@gmail.com",
+            "email": "moderator@example.com",
             "first_name": "Moderator",
             "last_name": "User",
             "password": "test_password",
